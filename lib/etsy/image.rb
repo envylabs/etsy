@@ -28,7 +28,8 @@ module Etsy
     def self.create(listing, image_path, options = {})
       options[:image] = File.new(image_path)
       options[:multipart] = true
-      post("/listings/#{listing.id}/images", options)
+      listing_id = (Fixnum === listing ? listing : listing.id)
+      post("/listings/#{listing_id}/images", options)
     end
   end
 end

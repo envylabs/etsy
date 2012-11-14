@@ -5,11 +5,28 @@ module Etsy
 
     context "The Image class" do
 
+      Listing = Struct.new(:id)
+
+      setup do
+        File.stubs(:new)
+        @listing_id, @options = 1, {}
+      end
+
       should "be able to find all images for a listing" do
         images = mock_request('/listings/1/images', {}, 'Image', 'findAllListingImages.json')
         Image.find_all_by_listing_id(1).should == images
       end
 
+      should "be able to create from a listing id" do
+        Image.expects(:post).with("/listings/#{@listing_id}/images", @options)
+        Image.create(@listing_id, '/some/image', @options)
+      end
+
+      should "be able to create from a listing object" do
+        listing = Listing.new(@listing_id)
+        Image.expects(:post).with("/listings/#{@listing_id}/images", @options)
+        Image.create(listing, '/some/image', @options)
+      end
     end
 
     context "An instance of the Image class" do
