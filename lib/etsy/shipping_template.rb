@@ -28,5 +28,14 @@ module Etsy
       }
       get("/users/#{user.id}/shipping/templates", options)
     end
+
+    def self.find_all_by_user(credentials = {})
+      options = {
+        :access_token => credentials[:access_token],
+        :access_secret => credentials[:access_secret],
+        :require_secure => true
+      }
+      get("/users/__SELF__/shipping/templates", options)
+    end
   end
 end
