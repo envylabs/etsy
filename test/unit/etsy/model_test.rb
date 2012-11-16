@@ -59,6 +59,35 @@ module Etsy
 
         TestModel.get_all('', :limit => :all)
       end
+
+      context 'performing a DELETE' do
+
+        should 'construct a new Request object' do
+          path, options = '/path', {}
+          request_stub = stub(:delete => '')
+          Request.expects(:new).with(path, options).returns(request_stub)
+          TestModel.delete(path, options)
+        end
+
+        should 'delegate delete call to Request object' do
+          path, options = '/path', {}
+          delete_response = 'delete response'
+          request_mock = mock { |m| m.expects(:delete).returns(delete_response) }
+          Request.stubs(:new).returns(request_mock)
+          TestModel.delete(path, options)
+        end
+
+        should 'construct a response object' do
+          path, options = '/path', {}
+          delete_response = 'delete response'
+          request_stub = stub(:delete => delete_response)
+          Request.stubs(:new).returns(request_stub)
+          Response.expects(:new).with(delete_response)
+          TestModel.delete(path, options)
+        end
+
+      end
+
     end
   end
 end

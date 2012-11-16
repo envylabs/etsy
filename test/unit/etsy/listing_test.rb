@@ -15,6 +15,12 @@ module Etsy
         Listing.find('123', '456').should == listings
       end
 
+      should "be able to delete a listing" do
+        listing_id, options = 123, {}
+        Listing.expects(:delete).with("/listings/#{listing_id}", options.merge(:require_secure => true))
+        Listing.destroy(listing_id, options)
+      end
+
       context "within the scope of a shop" do
 
         should "be able to find the first 25 active listings" do

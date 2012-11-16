@@ -183,6 +183,16 @@ module Etsy
         options.should == options_copy
       end
 
+      should "delegate DELETE to client" do
+        endpoint_url = 'endpoint url'
+
+        client = mock { |m| m.expects(:delete).with(endpoint_url) }
+
+        request = Request.new('/path', {})
+        request.stubs(:client).returns(client)
+        request.stubs(:endpoint_url).returns(endpoint_url)
+        request.delete
+      end
     end
 
 

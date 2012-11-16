@@ -115,6 +115,12 @@ module Etsy
       get_all("/listings/active", options)
     end
 
+    # Deletes a listing
+    # http://www.etsy.com/developers/documentation/reference/listing#method_deletelisting
+    def self.destroy(listing_id, options= {})
+      delete("/listings/#{listing_id}", options.merge(:require_secure => true))
+    end
+
     # The collection of images associated with this listing.
     #
     def images

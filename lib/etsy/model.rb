@@ -84,6 +84,13 @@ module Etsy
         Request.put(endpoint, options)
       end
 
+      def delete(endpoint, options={})
+        # TODO: Refactor this into a top level
+        # Request.delete class method that does it all.
+        request = Request.new(endpoint, options)
+        Response.new(request.delete)
+      end
+
       def find_one_or_more(endpoint, identifiers_and_options)
         options = options_from(identifiers_and_options)
         append = options.delete(:append_to_endpoint)

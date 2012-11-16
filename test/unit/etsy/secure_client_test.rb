@@ -126,6 +126,18 @@ module Etsy
         client.get(url).should == 'something'
       end
 
+      should "delegate :delete to :client" do
+        url = 'http://etsy.com/'
+
+        oauth_client = stub()
+        oauth_client.stubs(:delete).with(url).returns('delete')
+
+        client = SecureClient.new
+        client.stubs(:client).returns(oauth_client)
+
+        client.delete(url).should == 'delete'
+      end
+
     end
 
   end

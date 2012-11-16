@@ -57,6 +57,10 @@ module Etsy
       client.get(endpoint_url)
     end
 
+    def delete
+      client.delete(endpoint_url)
+    end
+
     def post
       if multipart?
         client.post_multipart(endpoint_url(:include_query => false), @parameters)
