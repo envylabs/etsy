@@ -10,7 +10,7 @@ module Etsy
       options.merge!(:require_secure => true)
       post("/shipping/templates", options)
     end
- 
+
     def self.find(id, credentials = {})
       options = {
         :access_token => credentials[:access_token],
@@ -35,7 +35,7 @@ module Etsy
         :access_secret => credentials[:access_secret],
         :require_secure => true
       }
-      get("/users/__SELF__/shipping/templates", options)
+      get_all("/users/__SELF__/shipping/templates", options)
     end
   end
 end

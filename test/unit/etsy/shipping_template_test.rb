@@ -19,10 +19,10 @@ module Etsy
       should "have an user_id" do
         @shipping_template.user_id.should == 14888443
       end
-      
+
       should "be able to list all templates from a user" do
         options = { access_token: 'token',  access_secret: 'secret' }
-        ShippingTemplate.expects(:get).with('/users/__SELF__/shipping/templates', options.merge(require_secure: true))
+        ShippingTemplate.expects(:get_all).with('/users/__SELF__/shipping/templates', options.merge(require_secure: true))
         ShippingTemplate.find_all_by_user(options)
       end
     end
